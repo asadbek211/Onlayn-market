@@ -1,4 +1,4 @@
-package com.bizmiz.umidjonmarket111.ui.home.model
+package com.bizmiz.umidjonmarket111.ui.model
 
 data class CategoryItem(
     val categoryImg:Int,

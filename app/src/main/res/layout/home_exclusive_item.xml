@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:background="@drawable/exclusive_shape"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/milliard_medium"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="Qulupnay"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:textColor="#252527"
+            android:textSize="15dp" />
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/milliard_medium"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="1kg narxi"
+            android:layout_marginStart="10dp"
+            android:textColor="#B2B2B2"
+            android:textSize="13dp" />
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/milliard_medium"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="20 000 so'm"
+            android:layout_marginStart="10dp"
+            android:textColor="#252527"
+            android:textSize="14dp" />
+        <ImageView
+            android:id="@+id/tvImages"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="40dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/exclusive1" />
+    </LinearLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

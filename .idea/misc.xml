@@ -4,13 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/bottom_shape.xml" value="0.158" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/exclusive_shape.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/home_icon_notification.xml" value="0.158" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/home_item.xml" value="0.158" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_baseline_favorite_24.xml" value="0.158" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.158" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.158" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_cat_background.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_cat_fon.xml" value="0.1655" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_home.xml" value="0.158" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_home_new.xml" value="0.1675" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_new_home.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/shape_fragment.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/activity_main.xml" value="0.1953125" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_favourite.xml" value="0.209375" />
@@ -18,6 +22,7 @@
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_profile.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_search.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/home_category_item.xml" value="0.209375" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/home_exclusive_item.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/menu/nav_menu.xml" value="0.25" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.158" />
       </map>

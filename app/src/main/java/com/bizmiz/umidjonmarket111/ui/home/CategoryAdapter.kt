@@ -1,10 +1,10 @@
-package com.bizmiz.umidjonmarket111.ui.home.adapter
+package com.bizmiz.umidjonmarket111.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bizmiz.umidjonmarket111.databinding.HomeCategoryItemBinding
-import com.bizmiz.umidjonmarket111.ui.home.model.CategoryItem
+import com.bizmiz.umidjonmarket111.ui.model.CategoryItem
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     var categoryList: ArrayList<CategoryItem> = arrayListOf()
