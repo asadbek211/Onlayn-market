@@ -26,8 +26,6 @@ class MainActivity : AppCompatActivity() {
         val popupMenu = PopupMenu(this, null)
         popupMenu.inflate(R.menu.nav_menu)
         val menu = popupMenu.menu
-        binding.bottomBar.background = null
-        binding.bottomBar.barBackgroundColor = 0
         binding.bottomBar.setupWithNavController(menu, navController)
     }
 

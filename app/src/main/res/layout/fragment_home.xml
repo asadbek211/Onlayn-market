@@ -21,7 +21,7 @@
             android:gravity="center"
             android:text="Salom Umidjon"
             android:textColor="#323238"
-            android:textSize="30dp"
+            android:textSize="28dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,7 +34,7 @@
             android:gravity="center"
             android:text="Ilovaga xush kelibsiz"
             android:textColor="#AAAAAC"
-            android:textSize="22dp"
+            android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvUseName" />
 
@@ -63,7 +63,7 @@
             android:fontFamily="@font/taz_bold"
             android:text="Category"
             android:textColor="#434349"
-            android:textSize="25dp"
+            android:textSize="23dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
