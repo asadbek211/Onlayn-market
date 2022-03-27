@@ -1,62 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_margin="10dp"
         android:background="@drawable/exclusive_shape"
         android:orientation="vertical"
+        android:id="@+id/container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center">
+
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:fontFamily="@font/milliard_medium"
             android:gravity="center"
-            android:textStyle="bold"
             android:text="Qulupnay"
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="10dp"
             android:textColor="#252527"
-            android:textSize="15dp" />
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/milliard_medium"
             android:gravity="center"
-            android:textStyle="bold"
             android:text="1kg narxi"
-            android:layout_marginStart="10dp"
             android:textColor="#B2B2B2"
-            android:textSize="13dp" />
+            android:textSize="13dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/milliard_medium"
             android:gravity="center"
+            android:text="20 000 UZS"
+            android:textColor="@color/secondary_color"
+            android:textSize="14dp"
             android:textStyle="bold"
-            android:text="20 000 so'm"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <ImageView
+            android:id="@+id/tvLine"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/milliard_medium"
+            android:src="@drawable/ic_line"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+            app:layout_constraintEnd_toEndOf="@+id/tvPrice"
+            app:layout_constraintStart_toStartOf="@+id/tvPrice"
+            app:layout_constraintTop_toTopOf="@+id/tvPrice" />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:id="@+id/tvNewPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:fontFamily="@font/milliard_medium"
+            android:gravity="center"
+            android:text="18 000 UZS"
             android:textColor="#252527"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrice" />
+        <ImageView
+            android:layout_marginStart="5dp"
+            android:id="@+id/offerBackground"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:fontFamily="@font/milliard_medium"
+            android:src="@drawable/offer_background"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPrice"
+            app:layout_constraintStart_toEndOf="@+id/tvPrice"
+            app:layout_constraintTop_toTopOf="@+id/tvPrice" />
+
+        <TextView
+            android:id="@+id/tvOffer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/milliard_medium"
+            android:gravity="center"
+            android:text="10%"
+            android:textColor="@color/white"
+            android:textSize="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/offerBackground"
+            app:layout_constraintEnd_toEndOf="@+id/offerBackground"
+            app:layout_constraintStart_toStartOf="@+id/offerBackground"
+            app:layout_constraintTop_toTopOf="@+id/offerBackground" />
+
         <ImageView
             android:id="@+id/tvImages"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="15dp"
             android:padding="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="40dp"
             android:scaleType="fitXY"
-            android:src="@drawable/exclusive1" />
-    </LinearLayout>
+            android:src="@drawable/exclusive1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvNewPrice" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/etLiner"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="500dp">
+            <ImageView
+                android:paddingTop="2dp"
+                android:layout_gravity="center"
+                android:id="@+id/btnFavourite"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_baseline_favorite_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

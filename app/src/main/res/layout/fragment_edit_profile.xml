@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".bottom_nav.profile.edit_profile.EditProfileFragment">
+ <androidx.core.widget.NestedScrollView
+     android:layout_width="match_parent"
+     android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:src="@drawable/ic_baseline_keyboard_backspace_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Profile"
+            android:textColor="@color/black"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+            app:layout_constraintEnd_toStartOf="@+id/txtSave"
+            app:layout_constraintStart_toEndOf="@+id/btnBack"
+            app:layout_constraintTop_toTopOf="@+id/btnBack" />
+
+        <TextView
+            android:id="@+id/txtSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="25dp"
+            android:background="@drawable/shape_profil_edit"
+            android:gravity="center"
+            android:paddingStart="15dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="15dp"
+            android:paddingBottom="5dp"
+            android:text="Saqlash"
+            android:textColor="@color/secondary_color"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/btnBack" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/userImageEdit"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="60dp"
+            android:src="@drawable/profile_img"
+            android:theme="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+
+        <ImageView
+            android:id="@+id/editImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="76dp"
+            android:layout_marginBottom="60dp"
+            android:padding="2dp"
+            android:src="@drawable/ic_photos"
+            app:layout_constraintBottom_toBottomOf="@+id/userImageEdit"
+            app:layout_constraintStart_toStartOf="@+id/userImageEdit" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Ism"
+            android:textColor="@color/hint_color"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/loginEditName"
+            app:layout_constraintStart_toStartOf="@+id/loginEditName" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/loginEditName"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/edit_profile_shape"
+            android:paddingStart="20dp"
+            android:singleLine="true"
+            android:text="Asadbek"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userImageEdit" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Familiya"
+            android:textColor="@color/hint_color"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/loginEditSurname"
+            app:layout_constraintStart_toStartOf="@+id/loginEditSurname" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Tug'ilgan sana"
+            android:textColor="@color/hint_color"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/loginEditBirthday"
+            app:layout_constraintStart_toStartOf="@+id/loginEditBirthday" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/loginEditSurname"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/edit_profile_shape"
+            android:paddingStart="20dp"
+            android:singleLine="true"
+            android:text="Satimov"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginEditName" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Jinsi"
+            android:textColor="@color/hint_color"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/linerMale"
+            app:layout_constraintStart_toStartOf="@+id/linerMale" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Joylashuv"
+            android:textColor="@color/hint_color"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/loginEditLocation"
+            app:layout_constraintStart_toStartOf="@+id/loginEditLocation" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Tel raqam"
+            android:textColor="@color/hint_color"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/loginEditPhoneNumber"
+            app:layout_constraintStart_toStartOf="@+id/loginEditPhoneNumber" />
+
+        <LinearLayout
+            android:id="@+id/linerMale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="5dp"
+            android:background="@drawable/edit_profile_shape"
+            app:layout_constraintEnd_toStartOf="@+id/linerFemale"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginEditBirthday">
+
+            <RadioButton
+                android:id="@+id/rdbMale"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:buttonTint="@color/secondary_color"
+                android:text="Erkak" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linerFemale"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/edit_profile_shape"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/linerMale"
+            app:layout_constraintTop_toTopOf="@+id/linerMale">
+
+            <RadioButton
+                android:id="@+id/rdbFemale"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:buttonTint="@color/secondary_color"
+                android:text="Ayol" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/loginEditBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/edit_profile_shape"
+            android:drawableEnd="@drawable/ic_arrow_down"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="15dp"
+            android:hint="Tanlang"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginEditSurname" />
+
+        <TextView
+            android:id="@+id/loginEditLocation"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/edit_profile_shape"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="15dp"
+            android:textColor="@color/black"
+            android:hint="Joylashuvni olish uchun bosing"
+            android:text=""
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linerMale" />
+
+        <TextView
+            android:id="@+id/loginEditPhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="30dp"
+            android:background="@drawable/edit_profile_shape"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:paddingStart="20dp"
+            android:paddingEnd="15dp"
+            android:text="+998907366402"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnPhoneNumberEdit"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/loginEditLocation" />
+
+        <TextView
+            android:id="@+id/btnPhoneNumberEdit"
+            android:layout_width="130dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/shape_profil_edit_button"
+            android:gravity="center"
+            android:padding="7dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="O'zgartirish"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/loginEditPhoneNumber"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/loginEditPhoneNumber"
+            app:layout_constraintTop_toTopOf="@+id/loginEditPhoneNumber" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+ </androidx.core.widget.NestedScrollView>
+    <LinearLayout
+        android:visibility="gone"
+        android:background="#9F7A7A7A"
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loadingAnim"
+            android:padding="80dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:lottie_fileName="loading3.json"
+            app:lottie_loop="true" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

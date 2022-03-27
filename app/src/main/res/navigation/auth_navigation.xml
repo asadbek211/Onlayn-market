@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_navigation"
+    app:startDestination="@id/mainMotion">
+
+    <fragment
+        tools:layout="@layout/fragment_main_motion"
+        android:id="@+id/mainMotion"
+        android:name="com.bizmiz.umidjonmarket111.auth.motion.MainMotion"
+        android:label="MainMotion" >
+        <action
+            android:id="@+id/action_mainMotion_to_createAccount"
+            app:destination="@id/createAccount"
+            app:popUpTo="@id/mainMotion"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_sms_verify"
+        android:id="@+id/smsVerify"
+        android:name="com.bizmiz.umidjonmarket111.auth.get_started.sms_verify.SmsVerifyFragment"
+        android:label="SmsVerify" />
+    <fragment
+        tools:layout="@layout/fragment_create_account"
+        android:id="@+id/createAccount"
+        android:name="com.bizmiz.umidjonmarket111.auth.get_started.create_account.CreateAccountFragment"
+        android:label="CreateAccount" >
+        <action
+            android:id="@+id/action_createAccount_to_smsVerify"
+            app:destination="@id/smsVerify" />
+    </fragment>
+</navigation>
