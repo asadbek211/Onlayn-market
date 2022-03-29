@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main.xml"
+    app:startDestination="@id/bottomNav">
+
+    <fragment
+        android:id="@+id/category"
+        android:name="com.bizmiz.umidjonmarket111.bottom_nav.home.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/bottomNav"
+        android:name="com.bizmiz.umidjonmarket111.bottom_nav.BottomNavFragment"
+        android:label="BottomNav"
+        tools:layout="@layout/fragment_bottom_nav">
+        <action
+            android:id="@+id/bottomNav_to_category"
+            app:destination="@id/category"/>
+        <action
+            android:id="@+id/bottomNav_to_productView"
+            app:destination="@id/productView" />
+        <action
+            android:id="@+id/action_bottomNav_to_editProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/productView"
+        android:name="com.bizmiz.umidjonmarket111.bottom_nav.product_view.ProductViewFragment"
+        android:label="product_view"
+        tools:layout="@layout/fragment_product_view" />
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.bizmiz.umidjonmarket111.bottom_nav.profile.edit_profile.EditProfileFragment"
+        android:label="edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+</navigation>

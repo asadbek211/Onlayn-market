@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp">
+
+        <ImageView
+            android:padding="2dp"
+            android:id="@+id/categoryImages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/ic_all_category_fon"
+            android:scaleType="fitXY"
+            android:src="@drawable/cat1" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvCategoryName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/milliard_medium"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Ichimliklar"
+        android:textColor="#323238"
+        android:textSize="13dp" />
+</androidx.appcompat.widget.LinearLayoutCompat>

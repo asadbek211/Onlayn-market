@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Umidjon Market (111)</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_page1_title"> </string>
+    <string name="onboarding_page1_title2">Xush Kelibsiz</string>
+    <string name="onboarding_page1_desription">"Umidjon Market 111 do'konining mobil platformasiga." </string>
+    <string name="onboarding_page2_title"> </string>
+    <string name="onboarding_page2_title2">Qulayliklar</string>
+    <string name="onboarding_page2_desription">"Do'konda barcha turdagi oziq-ovqat maxsulotlari bor va siz ular bilan uydan chiqmasdan mobil platforma orqali tanishib chiqishingiz mumkin." </string>
+    <string name="onboarding_page5_title"> </string>
+    <string name="onboarding_page5_title2">Chegirmalar</string>
+    <string name="onboarding_page5_desription">Mobil platformamizdagi foydalanuvchilarga har xil turdagi chegirmalarimiz bor.</string>
+    <string name="hint">"−−"</string>
 </resources>
