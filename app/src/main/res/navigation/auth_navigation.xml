@@ -15,6 +15,11 @@
             app:destination="@id/createAccount"
             app:popUpTo="@id/mainMotion"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_mainMotion_to_updateAccountFragment2"
+            app:destination="@id/updateAccountFragment2"
+            app:popUpTo="@id/mainMotion"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         tools:layout="@layout/fragment_sms_verify"
@@ -28,6 +33,15 @@
         android:label="CreateAccount" >
         <action
             android:id="@+id/action_createAccount_to_smsVerify"
+            app:destination="@id/smsVerify" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateAccountFragment2"
+        android:name="com.bizmiz.umidjonmarket111.auth.get_started.update_account.UpdateAccountFragment"
+        android:label="fragment_update_account"
+        tools:layout="@layout/fragment_update_account" >
+        <action
+            android:id="@+id/action_updateAccountFragment2_to_smsVerify"
             app:destination="@id/smsVerify" />
     </fragment>
 </navigation>

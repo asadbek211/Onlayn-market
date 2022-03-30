@@ -1,20 +1,20 @@
 {
   "project_info": {
-    "project_number": "836135398772",
-    "project_id": "productsmagazine-80374",
-    "storage_bucket": "productsmagazine-80374.appspot.com"
+    "project_number": "902818791942",
+    "project_id": "umidjon-market111",
+    "storage_bucket": "umidjon-market111.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:836135398772:android:a59e9085cdf7c8a9eb5021",
+        "mobilesdk_app_id": "1:902818791942:android:1fd48130408f05abd5f987",
         "android_client_info": {
           "package_name": "com.bizmiz.umidjonmarket111"
         }
       },
       "oauth_client": [
         {
-          "client_id": "836135398772-n2u0phm8br23duamjs1nhol3min0hajf.apps.googleusercontent.com",
+          "client_id": "902818791942-5s5qk49e83tjsp298rhmu3jte84cbdip.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.bizmiz.umidjonmarket111",
@@ -22,20 +22,20 @@
           }
         },
         {
-          "client_id": "836135398772-a1qi4m2mr6hnlj7nd081v26ljsij0agq.apps.googleusercontent.com",
+          "client_id": "902818791942-ce5jljgr8hjqerid352e4n4pb4puml98.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCaLUkaRsOaBrG7UnWAkSEAvX9XdjkeDtc"
+          "current_key": "AIzaSyAPn4XZBo6EP5YENHK8Q_RrnYqLaN-0abo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "836135398772-a1qi4m2mr6hnlj7nd081v26ljsij0agq.apps.googleusercontent.com",
+              "client_id": "902818791942-ce5jljgr8hjqerid352e4n4pb4puml98.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

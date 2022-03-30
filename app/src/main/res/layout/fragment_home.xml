@@ -19,7 +19,7 @@
             android:layout_marginTop="30dp"
             android:fontFamily="@font/taz_bold"
             android:gravity="center"
-            android:text="Salom Asadbek"
+            android:text=""
             android:textColor="#323238"
             android:textSize="28dp"
             app:layout_constraintStart_toStartOf="parent"

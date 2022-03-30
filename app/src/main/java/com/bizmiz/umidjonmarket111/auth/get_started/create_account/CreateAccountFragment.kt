@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.navigation.Navigation
 import com.bizmiz.umidjonmarket111.R
 import com.bizmiz.umidjonmarket111.databinding.FragmentCreateAccountBinding
 import com.bizmiz.umidjonmarket111.utils.PhoneNumberTextWatcher
+import com.bizmiz.umidjonmarket111.utils.showSoftKeyboard
 import com.google.android.material.tabs.TabLayout
 
 
@@ -40,13 +42,38 @@ class CreateAccountFragment : Fragment() {
         )
         binding.apply {
             btnCreate.setOnClickListener {
-                if (networkCheck()){
-                    val bundle = bundleOf(
-                        "number" to "+998${binding.txtPhoneNumber.text?.trim()}"
-                    )
-                    val navController =
-                        Navigation.findNavController(requireActivity(), R.id.authContainer)
-                    navController.navigate(R.id.action_createAccount_to_smsVerify,bundle)
+                if (networkCheck()) {
+                    if (loginName.text != null && loginSurname.text != null) {
+                        if (loginName.text!!.trim().isNotEmpty()) {
+                            if (loginSurname.text!!.trim().isNotEmpty()) {
+                                if (txtPhoneNumber.text!!.trim().isNotEmpty()) {
+                                    val bundle = bundleOf(
+                                        "name" to binding.loginName.text.toString(),
+                                        "surname" to binding.loginSurname.text.toString(),
+                                        "phoneNumber" to "+998${
+                                            binding.txtPhoneNumber.text?.toString()?.replace("-", "")?.trim()
+                                        }",
+                                        "number" to 0
+                                    )
+                                    val navController =
+                                        Navigation.findNavController(requireActivity(), R.id.authContainer)
+                                    navController.navigate(R.id.action_createAccount_to_smsVerify, bundle)
+                                } else {
+                                    txtPhoneNumber.error = "Raqam kiritilishi majburiy"
+                                    txtPhoneNumber.showSoftKeyboard()
+                                }
+                            } else {
+                                loginSurname.error = "Satr to'ldirilishi majburiy"
+                                loginSurname.showSoftKeyboard()
+                            }
+                        } else {
+                            loginName.error = "Satr to'ldirilishi majburiy"
+                            loginName.showSoftKeyboard()
+                        }
+                    }
+                } else {
+                    Toast.makeText(requireActivity(), "Internet aloqasi yo'q", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
             binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
@@ -123,7 +150,8 @@ class CreateAccountFragment : Fragment() {
             logo.animate().alpha(1f).duration = 1000
         }
     }
-    private fun networkCheck():Boolean {
+
+    private fun networkCheck(): Boolean {
         val conManager =
             context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val internetInfo = conManager.activeNetworkInfo

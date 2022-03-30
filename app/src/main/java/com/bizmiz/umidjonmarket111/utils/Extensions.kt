@@ -1,7 +1,15 @@
 package com.bizmiz.umidjonmarket111.utils
 
+import android.content.Context
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.RadioButton
 import com.bizmiz.umidjonmarket111.R
+fun View.showSoftKeyboard() {
+    val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    this.requestFocus()
+    imm.showSoftInput(this, 0)
+}
 fun twoCheckedRadioButton(rdb1: RadioButton, rdb2: RadioButton) {
     rdb1.isChecked = true
     rdb2.isChecked = false

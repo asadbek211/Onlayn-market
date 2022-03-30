@@ -1,5 +1,7 @@
 package com.bizmiz.umidjonmarket111.auth.motion
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,6 +22,7 @@ class MainMotion : Fragment() {
     private lateinit var binding: FragmentMainMotionBinding
     private var adapter: OnBoardingAdapter? = null
     private var running = false
+    private lateinit var prefs: SharedPreferences
     private var fromPositionToLeft: Animation? = null
     private var fromRightToPosition: Animation? = null
     private var fromLeftToPosition: Animation? = null
@@ -32,6 +35,12 @@ class MainMotion : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        prefs = requireActivity().getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE)
+        if (getPrefs()==1){
+            val navController =
+                Navigation.findNavController(requireActivity(), R.id.authContainer)
+            navController.navigate(R.id.action_mainMotion_to_updateAccountFragment2)
+        }
         requireActivity().window.statusBarColor =
             ContextCompat.getColor(requireActivity(), R.color.first_color)
         requireActivity().window.decorView.windowInsetsController?.setSystemBarsAppearance(
@@ -130,5 +139,9 @@ class MainMotion : Fragment() {
         onBoardingItems.add(item2)
         onBoardingItems.add(categoryItem5)
         adapter = OnBoardingAdapter(onBoardingItems)
+    }
+    private fun getPrefs(): Int {
+        prefs = requireActivity().getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE)
+        return prefs.getInt("number", 0)
     }
 }

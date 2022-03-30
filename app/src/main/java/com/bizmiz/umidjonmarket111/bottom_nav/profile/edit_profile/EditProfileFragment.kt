@@ -5,42 +5,66 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.location.Location
 import android.location.LocationManager
 import android.net.ConnectivityManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.bizmiz.umidjonmarket111.R
 import com.bizmiz.umidjonmarket111.ResourceState
+import com.bizmiz.umidjonmarket111.auth.container.ContainerActivity
+import com.bizmiz.umidjonmarket111.auth.get_started.sms_verify.UserDataViewModel
 import com.bizmiz.umidjonmarket111.databinding.FragmentEditProfileBinding
+import com.bumptech.glide.Glide
 import com.google.android.gms.location.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
+
 class EditProfileFragment : Fragment() {
+    private lateinit var prefs: SharedPreferences
+    private lateinit var auth: FirebaseAuth
     private val district: GetDistrictViewModel by viewModel()
+    private val userData: UserDataViewModel by viewModel()
     private var maleChecked = false
     private var femaleChecked = false
+    private var gender = ""
+    private var imageUrl: Uri? = null
     private lateinit var binding: FragmentEditProfileBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
+
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        requireActivity().window.statusBarColor =
-//            ContextCompat.getColor(requireActivity(), R.color.loading_color)
+        auth = Firebase.auth
+        prefs = requireActivity().getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE)
         binding = FragmentEditProfileBinding.bind(
             inflater.inflate(
                 R.layout.fragment_edit_profile,
@@ -48,32 +72,41 @@ class EditProfileFragment : Fragment() {
                 false
             )
         )
+        if (auth.currentUser != null) {
+            userData.getUserData(auth.currentUser!!.uid)
+        }
         binding.loadingAnim.playAnimation()
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())
         binding.rdbFemale.setOnClickListener {
             if (femaleChecked) {
+                gender = ""
                 binding.rdbFemale.isChecked = false
                 femaleChecked = false
             } else {
                 if (maleChecked) {
+                    gender = ""
                     binding.rdbMale.isChecked = false
                     maleChecked = false
                 }
                 binding.rdbFemale.isChecked = true
+                gender = binding.rdbFemale.text.toString()
                 femaleChecked = true
             }
         }
         binding.rdbMale.setOnClickListener {
             if (maleChecked) {
+                gender = ""
                 binding.rdbMale.isChecked = false
                 maleChecked = false
             } else {
                 if (femaleChecked) {
+                    gender = ""
                     binding.rdbFemale.isChecked = false
                     femaleChecked = false
                 }
                 binding.rdbMale.isChecked = true
+                gender = binding.rdbMale.text.toString()
                 maleChecked = true
             }
         }
@@ -83,7 +116,7 @@ class EditProfileFragment : Fragment() {
             val mMonth: Int = calendar.get(Calendar.MONTH)
             val mDay: Int = calendar.get(Calendar.DAY_OF_MONTH)
             val datePickerDialog = DatePickerDialog(
-                requireContext(),
+                requireContext(), android.R.style.Theme_Holo_Light_Dialog_MinWidth,
                 { _, year, monthOfYear, dayOfMonth ->
                     if (monthOfYear + 1 < 10 && dayOfMonth < 10) {
                         binding.loginEditBirthday.text = "0$dayOfMonth.0${monthOfYear + 1}.$year"
@@ -96,6 +129,7 @@ class EditProfileFragment : Fragment() {
                     }
                 }, mYear, mMonth, mDay
             )
+            datePickerDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             datePickerDialog.setCancelable(false)
             datePickerDialog.setOnDismissListener {
                 it.dismiss()
@@ -118,19 +152,56 @@ class EditProfileFragment : Fragment() {
                 .create().show()
         }
         binding.editImage.setOnClickListener {
-            picImageIntent()
+            val itemBuilder = SubActionButton.Builder(requireActivity())
+            val itemIcon1 = ImageView(requireContext())
+            itemIcon1.setImageResource(R.drawable.ic_baseline_favorite_on_white)
+            val  button1 = itemBuilder.setContentView(itemIcon1).build()
+            val itemIcon2 = ImageView(requireContext())
+            itemIcon2.setBackgroundColor(resources.getColor(R.color.secondary_color))
+            itemIcon2.setImageResource(R.drawable.ic_baseline_person_24)
+            val  button2 = itemBuilder.setContentView(itemIcon2).build()
+            val actionMenu = FloatingActionMenu.Builder(requireActivity())
+                .addSubActionView(button1)
+                .addSubActionView(button2)
+                .attachTo(binding.editImage)
+                .build()
+//            picImageIntent()
         }
         binding.loginEditLocation.setOnClickListener {
-            if (networkCheck()){
+            if (networkCheck()) {
                 binding.loginEditLocation.setTextColor(resources.getColor(R.color.black))
                 binding.loginEditLocation.text = "Joylashuv olinmoqda..."
                 getLastLocation()
-            }else{
-                Toast.makeText(requireContext(), "Internetga ulanmagansiz", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Internetga ulanmagansiz", Toast.LENGTH_SHORT)
+                    .show()
                 binding.loginEditLocation.setTextColor(resources.getColor(android.R.color.holo_red_light))
                 binding.loginEditLocation.text = "Joylashuv olinmadi!"
             }
         }
+        binding.btnPhoneNumberEdit.setOnClickListener {
+            val message = AlertDialog.Builder(requireActivity())
+            message.setMessage("O'zgarishlarni saqlaysizmi?")
+                .setCancelable(false)
+                .setPositiveButton("Ha") { message, _ ->
+                    message.dismiss()
+                    setPrefs(1)
+                    startActivity(Intent(requireActivity(), ContainerActivity::class.java))
+                }
+                .setNegativeButton("Yo'q") { message, _ ->
+                    message.dismiss()
+                    startActivity(Intent(requireActivity(), ContainerActivity::class.java))
+                    setPrefs(1)
+                }
+                .create().show()
+
+        }
+        binding.loginEditPhoneNumber.text = auth.currentUser?.phoneNumber
+        getUserData()
+        binding.txtSave.setOnClickListener {
+            setUserImage()
+        }
+        getUserDataObserve()
         return binding.root
 
     }
@@ -145,8 +216,8 @@ class EditProfileFragment : Fragment() {
                     } else {
                         district.getDistrict(
                             "geocodejson",
-                            "39.704229",
-                            "64.700380"
+                            location.latitude.toString(),
+                            location.longitude.toString()
                         )
                         getDistrict()
                     }
@@ -243,6 +314,34 @@ class EditProfileFragment : Fragment() {
         })
     }
 
+    private fun getUserData() {
+        userData.user.observe(viewLifecycleOwner, Observer { it ->
+            when (it.status) {
+                ResourceState.SUCCESS -> {
+                    binding.loginEditName.setText(it.data?.name)
+                    binding.loginEditSurname.setText(it.data?.surname)
+                    binding.loginEditBirthday.text = it.data?.dateBirthday
+                    binding.loginEditLocation.text = it.data?.location
+                    if (it.data?.gender == "Erkak") {
+                        binding.rdbMale.isChecked = true
+                        gender = binding.rdbMale.text.toString()
+                    } else if (it.data?.gender == "Ayol") {
+                        binding.rdbFemale.isChecked = true
+                        gender = binding.rdbFemale.text.toString()
+                    }
+                    if (it.data?.userPhotoUrl != null) {
+                        if (it.data.userPhotoUrl.isNotEmpty()) {
+                            Glide.with(this).load(it.data.userPhotoUrl).into(binding.userImageEdit)
+                        }
+                    }
+                }
+                ResourceState.ERROR -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
     private fun picImageIntent() {
         val intent = Intent()
         intent.type = "image/*"
@@ -256,15 +355,79 @@ class EditProfileFragment : Fragment() {
         if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 if (data != null) {
+                    imageUrl = data.data
                     binding.userImageEdit.setImageURI(data.data)
                 }
             }
         }
     }
-    private fun networkCheck():Boolean {
+
+    private fun networkCheck(): Boolean {
         val conManager =
             context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val internetInfo = conManager.activeNetworkInfo
         return internetInfo != null && internetInfo.isConnected
+    }
+
+    private fun setPrefs(number: Int) {
+        prefs = requireActivity().getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE)
+        prefs.edit().putInt("number", number).apply()
+    }
+
+    private fun setUserImage() {
+        if (imageUrl!=null){
+            val storeRef =
+                FirebaseStorage.getInstance().reference.child("${auth.currentUser?.uid}/userImage")
+            storeRef.putFile(imageUrl!!)
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        it.result.metadata?.reference?.downloadUrl?.addOnSuccessListener { uri ->
+                            userData.updateUserData(
+                                auth.currentUser!!.uid,
+                                uri.toString(),
+                                binding.loginEditName.text.toString(),
+                                binding.loginEditSurname.text.toString(),
+                                binding.loginEditBirthday.text.toString(),
+                                gender,
+                                binding.loginEditLocation.text.toString(),
+                                binding.loginEditPhoneNumber.text.toString()
+                            )
+                        }
+                    }
+
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireActivity(), it.localizedMessage, Toast.LENGTH_SHORT)
+                        .show()
+                }
+        }else{
+            userData.updateUserData(
+                auth.currentUser!!.uid,
+               "",
+                binding.loginEditName.text.toString(),
+                binding.loginEditSurname.text.toString(),
+                binding.loginEditBirthday.text.toString(),
+                gender,
+                binding.loginEditLocation.text.toString(),
+                binding.loginEditPhoneNumber.text.toString()
+            )
+        }
+
+
+    }
+
+    private fun getUserDataObserve() {
+        userData.updateUser.observe(viewLifecycleOwner, Observer { it ->
+            when (it.status) {
+                ResourceState.SUCCESS -> {
+                    val navController =
+                        Navigation.findNavController(requireActivity(), R.id.main_container)
+                    navController.popBackStack()
+                }
+                ResourceState.ERROR -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 }

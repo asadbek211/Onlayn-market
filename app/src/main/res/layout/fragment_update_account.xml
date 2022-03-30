@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".auth.get_started.update_account.UpdateAccountFragment">
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:padding="10dp"
+        android:src="@drawable/ic_baseline_keyboard_backspace_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/change_number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/milliard_medium"
+        android:text="Raqam almashtirish"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="@+id/logo"
+        app:layout_constraintStart_toStartOf="@+id/logo"
+        app:layout_constraintTop_toBottomOf="@+id/logo" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/segoe_ui"
+        android:gravity="center"
+        android:text="+998907366402 telefon raqamingizni shu yerda almashtirishingiz mumkin.Barcha malumotlaringiz yangi raqamga o'tkaziladi."
+        android:textColor="#8D8D8E"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_marginTop="30dp"
+        android:id="@+id/login_main_layout_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description">
+
+        <EditText
+            android:enabled="false"
+            android:paddingStart="10dp"
+            android:paddingEnd="15dp"
+            android:id="@+id/txtCountryCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+998"
+            android:textColor="@color/black"
+            android:textSize="18dp" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/txtPhoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="start"
+            android:hint=" __ __   __ __ __   __ __   __ __ "
+            android:inputType="number"
+            android:singleLine="true"
+            android:textSize="18sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/description2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/segoe_ui"
+        android:text="Yangi raqamingizga SMS orqali tasdiqlash kodini yuboramiz."
+        android:textColor="#8D8D8E"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@+id/login_main_layout_phone"
+        app:layout_constraintStart_toStartOf="@+id/login_main_layout_phone"
+        app:layout_constraintTop_toBottomOf="@+id/login_main_layout_phone" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnCreate"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:background="@drawable/create_accaunt_gradient"
+        android:gravity="center"
+        android:text="Raqamni almashtirish"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:cornerRadius="72dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description2"
+        app:layout_constraintVertical_bias="0.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -123,7 +123,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linerWatch">
 
         <EditText
-            android:id="@+id/login_main_code1"
+            android:id="@+id/code1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="2dp"
@@ -136,21 +136,7 @@
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/login_main_code2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="2dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/milliard_heavy"
-            android:gravity="center"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:maxLength="1"
-            android:textColor="@color/black" />
-
-        <EditText
-            android:id="@+id/login_main_code3"
+            android:id="@+id/code2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
@@ -164,7 +150,7 @@
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/login_main_code4"
+            android:id="@+id/code3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
@@ -178,7 +164,7 @@
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/login_main_code5"
+            android:id="@+id/code4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
@@ -192,7 +178,21 @@
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/login_main_code6"
+            android:id="@+id/code5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/milliard_heavy"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textColor="@color/black" />
+
+        <EditText
+            android:id="@+id/code6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
