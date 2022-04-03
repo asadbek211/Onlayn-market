@@ -19,6 +19,9 @@ class UserDataViewModel(private val userDataHelper: UserDataHelper) : ViewModel(
     private val updateUserData: MutableLiveData<Resource<String?>> = MutableLiveData()
     val updateUser: LiveData<Resource<String?>>
         get() = updateUserData
+    private val checkUserRegistered: MutableLiveData<Resource<String?>> = MutableLiveData()
+    val checkUser: LiveData<Resource<String?>>
+        get() = checkUserRegistered
     fun setUserData(
         uid: String,
         userPhotoUrl: String,
@@ -73,13 +76,26 @@ class UserDataViewModel(private val userDataHelper: UserDataHelper) : ViewModel(
         uid: String
     ) {
         getUserDate.value = Resource.loading()
-        userDataHelper.getUserData(
+        userDataHelper.getUserDataByUid(
             uid,
             { success ->
                 getUserDate.value = Resource.success(success)
             },
             { failure ->
                 getUserDate.value = Resource.error(failure)
+            })
+    }
+    fun checkUserRegistered(
+        phoneNumber: String
+    ) {
+        checkUserRegistered.value = Resource.loading()
+        userDataHelper.checkUserRegistered(
+            phoneNumber,
+            { success ->
+                checkUserRegistered.value = Resource.success(success)
+            },
+            { failure ->
+                checkUserRegistered.value = Resource.error(failure)
             })
     }
     fun updateUserData(

@@ -125,7 +125,7 @@
                 app:slideInterval="3000"
                 app:strokeColor="@color/purple_500"
                 app:strokeWidth="1dp"
-                tools:ignore="MissingClass" />
+                tools:ignore="MissingClass,SpeakableTextPresentCheck" />
         </androidx.cardview.widget.CardView>
 
         <TextView

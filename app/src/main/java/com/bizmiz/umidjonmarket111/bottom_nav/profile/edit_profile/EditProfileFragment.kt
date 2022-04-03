@@ -46,6 +46,7 @@ import java.util.*
 
 
 class EditProfileFragment : Fragment() {
+    private var isAnim = true
     private lateinit var prefs: SharedPreferences
     private lateinit var auth: FirebaseAuth
     private val district: GetDistrictViewModel by viewModel()
@@ -54,6 +55,7 @@ class EditProfileFragment : Fragment() {
     private var femaleChecked = false
     private var gender = ""
     private var imageUrl: Uri? = null
+    private var storageUrl:String? = null
     private lateinit var binding: FragmentEditProfileBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
@@ -72,10 +74,12 @@ class EditProfileFragment : Fragment() {
                 false
             )
         )
+        binding.loading.setOnClickListener {
+
+        }
         if (auth.currentUser != null) {
             userData.getUserData(auth.currentUser!!.uid)
         }
-        binding.loadingAnim.playAnimation()
         fusedLocationProviderClient =
             LocationServices.getFusedLocationProviderClient(requireContext())
         binding.rdbFemale.setOnClickListener {
@@ -152,25 +156,11 @@ class EditProfileFragment : Fragment() {
                 .create().show()
         }
         binding.editImage.setOnClickListener {
-            val itemBuilder = SubActionButton.Builder(requireActivity())
-            val itemIcon1 = ImageView(requireContext())
-            itemIcon1.setImageResource(R.drawable.ic_baseline_favorite_on_white)
-            val  button1 = itemBuilder.setContentView(itemIcon1).build()
-            val itemIcon2 = ImageView(requireContext())
-            itemIcon2.setBackgroundColor(resources.getColor(R.color.secondary_color))
-            itemIcon2.setImageResource(R.drawable.ic_baseline_person_24)
-            val  button2 = itemBuilder.setContentView(itemIcon2).build()
-            val actionMenu = FloatingActionMenu.Builder(requireActivity())
-                .addSubActionView(button1)
-                .addSubActionView(button2)
-                .attachTo(binding.editImage)
-                .build()
+            imageAnimation()
 //            picImageIntent()
         }
         binding.loginEditLocation.setOnClickListener {
             if (networkCheck()) {
-                binding.loginEditLocation.setTextColor(resources.getColor(R.color.black))
-                binding.loginEditLocation.text = "Joylashuv olinmoqda..."
                 getLastLocation()
             } else {
                 Toast.makeText(requireContext(), "Internetga ulanmagansiz", Toast.LENGTH_SHORT)
@@ -202,6 +192,29 @@ class EditProfileFragment : Fragment() {
             setUserImage()
         }
         getUserDataObserve()
+        binding.addImage.setOnClickListener {
+            picImageIntent()
+            imageAnimation()
+        }
+        binding.removeImage.setOnClickListener {
+            if (storageUrl!=null && storageUrl!!.isNotEmpty()){
+                if(imageUrl!=null){
+                    imageAnimation()
+                    imageUrl = null
+                    Glide.with(this).load(storageUrl).into(binding.userImageEdit)
+                }else{
+                    binding.loading.visibility = View.VISIBLE
+                    binding.loadingAnim.playAnimation()
+                    imageAnimation()
+                    removeImages()
+                }
+
+            }else{
+                imageAnimation()
+                imageUrl = null
+                binding.userImageEdit.setImageResource(R.drawable.profile_img)
+            }
+        }
         return binding.root
 
     }
@@ -214,6 +227,8 @@ class EditProfileFragment : Fragment() {
                     if (location == null) {
                         newLocationData()
                     } else {
+                        binding.loginEditLocation.setTextColor(resources.getColor(R.color.black))
+                        binding.loginEditLocation.text = "Joylashuv olinmoqda..."
                         district.getDistrict(
                             "geocodejson",
                             location.latitude.toString(),
@@ -324,14 +339,19 @@ class EditProfileFragment : Fragment() {
                     binding.loginEditLocation.text = it.data?.location
                     if (it.data?.gender == "Erkak") {
                         binding.rdbMale.isChecked = true
+                        maleChecked = true
+                        femaleChecked = false
                         gender = binding.rdbMale.text.toString()
                     } else if (it.data?.gender == "Ayol") {
                         binding.rdbFemale.isChecked = true
+                        femaleChecked = true
+                        maleChecked = false
                         gender = binding.rdbFemale.text.toString()
                     }
-                    if (it.data?.userPhotoUrl != null) {
-                        if (it.data.userPhotoUrl.isNotEmpty()) {
-                            Glide.with(this).load(it.data.userPhotoUrl).into(binding.userImageEdit)
+                    storageUrl = it.data?.userPhotoUrl
+                    if (storageUrl != null) {
+                        if (storageUrl!!.isNotEmpty()) {
+                            Glide.with(this).load(storageUrl).into(binding.userImageEdit)
                         }
                     }
                 }
@@ -376,6 +396,8 @@ class EditProfileFragment : Fragment() {
 
     private fun setUserImage() {
         if (imageUrl!=null){
+            binding.loading.visibility = View.VISIBLE
+            binding.loadingAnim.playAnimation()
             val storeRef =
                 FirebaseStorage.getInstance().reference.child("${auth.currentUser?.uid}/userImage")
             storeRef.putFile(imageUrl!!)
@@ -394,16 +416,30 @@ class EditProfileFragment : Fragment() {
                             )
                         }
                     }
-
                 }
                 .addOnFailureListener {
+                    binding.loading.visibility = View.GONE
+                    binding.loadingAnim.pauseAnimation()
                     Toast.makeText(requireActivity(), it.localizedMessage, Toast.LENGTH_SHORT)
                         .show()
                 }
-        }else{
+        }else if (storageUrl!=null && storageUrl!!.isEmpty()){
+            binding.loading.visibility = View.VISIBLE
+            binding.loadingAnim.playAnimation()
             userData.updateUserData(
                 auth.currentUser!!.uid,
                "",
+                binding.loginEditName.text.toString(),
+                binding.loginEditSurname.text.toString(),
+                binding.loginEditBirthday.text.toString(),
+                gender,
+                binding.loginEditLocation.text.toString(),
+                binding.loginEditPhoneNumber.text.toString()
+            )
+        }else{
+            userData.updateUserData(
+                auth.currentUser!!.uid,
+                "noUpdate",
                 binding.loginEditName.text.toString(),
                 binding.loginEditSurname.text.toString(),
                 binding.loginEditBirthday.text.toString(),
@@ -415,19 +451,64 @@ class EditProfileFragment : Fragment() {
 
 
     }
+    private fun removeImages(){
+        if (storageUrl!=null){
+            val storeRef =
+                FirebaseStorage.getInstance().getReferenceFromUrl(storageUrl!!)
+            storeRef.delete()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        userData.updateUserData(auth.currentUser!!.uid,
+                            "","","","","","","")
 
+                    }
+                }
+                .addOnFailureListener {
+                    binding.loading.visibility = View.GONE
+                    binding.loadingAnim.pauseAnimation()
+                    Toast.makeText(requireActivity(), it.localizedMessage, Toast.LENGTH_SHORT)
+                        .show()
+                }
+        }
+    }
     private fun getUserDataObserve() {
         userData.updateUser.observe(viewLifecycleOwner, Observer { it ->
             when (it.status) {
                 ResourceState.SUCCESS -> {
+                    binding.loading.visibility = View.GONE
+                    binding.loadingAnim.pauseAnimation()
+                    binding.userImageEdit.setImageResource(R.drawable.profile_img)
+                    binding.loading.visibility = View.GONE
+                    binding.loadingAnim.pauseAnimation()
                     val navController =
                         Navigation.findNavController(requireActivity(), R.id.main_container)
                     navController.popBackStack()
                 }
                 ResourceState.ERROR -> {
+                    binding.loading.visibility = View.GONE
+                    binding.loadingAnim.pauseAnimation()
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }
         })
+    }
+    private fun imageAnimation(){
+        if (isAnim){
+            binding.editImage.setImageResource(R.drawable.ic_close_img)
+            isAnim = false
+            binding.addImage.animate().translationX(140f).duration = 500
+            if (storageUrl!= null && storageUrl!!.isNotEmpty() || imageUrl!=null){
+                binding.removeImage.animate().translationY(-140f).duration = 500
+            }
+
+        }else{
+            binding.editImage.setImageResource(R.drawable.ic_edit_img)
+            isAnim = true
+            binding.addImage.animate().translationX(0f).duration = 500
+            if (storageUrl!=null && storageUrl!!.isNotEmpty()|| imageUrl!=null){
+                binding.removeImage.animate().translationY(0f).duration = 500
+            }
+        }
+
     }
 }

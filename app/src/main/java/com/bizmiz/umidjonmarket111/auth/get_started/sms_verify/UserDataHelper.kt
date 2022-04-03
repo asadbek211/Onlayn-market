@@ -5,7 +5,7 @@ import com.bizmiz.umidjonmarket111.models.UserData
 import com.google.firebase.firestore.FirebaseFirestore
 
 class UserDataHelper(private val db: FirebaseFirestore) {
-    fun getUserData(
+    fun getUserDataByUid(
         uid: String,
         onSuccess: (user: UserData) -> Unit,
         onFailure: (msg: String?) -> Unit
@@ -21,7 +21,29 @@ class UserDataHelper(private val db: FirebaseFirestore) {
                 onFailure.invoke(it.localizedMessage)
             }
     }
-
+    fun checkUserRegistered(
+        phoneNumber: String,
+        onSuccess: (isRegistered: String) -> Unit,
+        onFailure: (msg: String?) -> Unit
+    ) {
+        val list: ArrayList<String> = arrayListOf()
+        db.collection(Constant.USER_COLLECTION)
+            .get().addOnSuccessListener {
+                it.documents.forEach { doc ->
+                    val model = doc.toObject(UserData::class.java)
+                    if (model != null){
+                        list.add(model.phoneNumber)
+                    }
+                }
+                if (list.contains(phoneNumber)){
+                    onSuccess.invoke("registered")
+                }else{
+                    onSuccess.invoke("unregistered")
+                }
+            }.addOnFailureListener {
+                onFailure.invoke(it.localizedMessage)
+            }
+    }
     fun setUserData(
         uid: String,
         userPhotoUrl: String,
@@ -70,6 +92,7 @@ class UserDataHelper(private val db: FirebaseFirestore) {
             }
         check.invoke("check")
     }
+
     fun updateUserData(
         uid: String,
         userPhotoUrl: String,
@@ -84,28 +107,28 @@ class UserDataHelper(private val db: FirebaseFirestore) {
         check: (msg: String?) -> Unit
     ) {
         val map: MutableMap<String, Any?> = mutableMapOf()
-        if (uid.isNotEmpty()){
+        if (uid.isNotEmpty()) {
             map["uid"] = uid
         }
-        if (userPhotoUrl.isNotEmpty()){
+        if (userPhotoUrl != "noUpdate"){
             map["userPhotoUrl"] = userPhotoUrl
         }
-        if (name.isNotEmpty()){
+        if (name.isNotEmpty()) {
             map["name"] = name
         }
-        if (surname.isNotEmpty()){
+        if (surname.isNotEmpty()) {
             map["surname"] = surname
         }
-        if (dateBirthday.isNotEmpty()){
+        if (dateBirthday.isNotEmpty()) {
             map["dateBirthday"] = dateBirthday
         }
-        if (gender.isNotEmpty()){
+        if (gender.isNotEmpty()) {
             map["gender"] = gender
         }
-        if (location.isNotEmpty()){
+        if (location.isNotEmpty()) {
             map["location"] = location
         }
-        if (phoneNumber.isNotEmpty()){
+        if (phoneNumber.isNotEmpty()) {
             map["phoneNumber"] = phoneNumber
         }
         db.collection(Constant.USER_COLLECTION).document(uid).update(map)

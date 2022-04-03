@@ -28,6 +28,7 @@
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_cat_background.xml" value="0.1675" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_cat_fon.xml" value="0.1655" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_category_fon.xml" value="0.1845" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_close_img.xml" value="0.151" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_home.xml" value="0.158" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_home_icon.xml" value="0.1845" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_home_new.xml" value="0.1675" />
@@ -38,6 +39,7 @@
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_logotip_gradient.xml" value="0.151" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_market_logos.xml" value="0.1565" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_new_home.xml" value="0.1675" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_photos.xml" value="0.151" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/ic_support.xml" value="0.151" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/icon_arrow_right.xml" value="0.1565" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/logo_name_gradient.xml" value="0.151" />
@@ -71,7 +73,7 @@
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_bottom_nav.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_category.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_create_account.xml" value="0.16" />
-        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_edit_profile.xml" value="0.22" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_edit_profile.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_favourite.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_main_motion.xml" value="0.12916666666666668" />

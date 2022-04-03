@@ -71,14 +71,13 @@ class SmsVerifyFragment : Fragment() {
                 false
             )
         )
+        binding.loading.setOnClickListener {}
         binding.txtPhoneNumber.text = phoneNumber
-        binding.watchAnim.playAnimation()
         binding.btnClose.setOnClickListener {
-            binding.loading.visibility = View.VISIBLE
             val navController = Navigation.findNavController(requireActivity(), R.id.authContainer)
             navController.popBackStack()
         }
-        timer()
+
         initTextWatcher(binding.code1, binding.code2, false)
         initTextWatcher(binding.code2, binding.code3, false)
         initTextWatcher(binding.code3, binding.code4, false)
@@ -105,6 +104,7 @@ class SmsVerifyFragment : Fragment() {
                 }
                 timer.start()
             } else if (::resendToken.isInitialized) {
+                loading(true)
                 timer()
                 binding.watchAnim.playAnimation()
                 resendVerificationCode(phoneNumber, resendToken)
@@ -128,17 +128,22 @@ class SmsVerifyFragment : Fragment() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
+                loading(false)
+                binding.watchAnim.playAnimation()
+                timer()
                 storedVerificationId = verificationId
                 resendToken = token
             }
         }
         startPhoneNumberVerification(phoneNumber)
         binding.btnConfirm.setOnClickListener {
+            loading(true)
             val code =
                 binding.code1.text.toString() + binding.code2.text.toString() + binding.code3.text.toString() + binding.code4.text.toString() + binding.code5.text.toString() + binding.code6.text.toString()
             verifyPhoneNumberWithCode(storedVerificationId, code)
         }
         userDataObserve()
+        loading(true)
         return binding.root
     }
 
@@ -234,17 +239,21 @@ class SmsVerifyFragment : Fragment() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    if (auth.currentUser != null && name != null && surname != null) {
-                        userData.setUserData(
-                            auth.currentUser!!.uid,
-                            "",
-                            name!!,
-                            surname!!,
-                            "",
-                            "",
-                            "",
-                            phoneNumber
-                        )
+                    if (auth.currentUser != null) {
+                        if (name != null && surname != null) {
+                            userData.setUserData(
+                                auth.currentUser!!.uid,
+                                "",
+                                name!!,
+                                surname!!,
+                                "",
+                                "",
+                                "",
+                                phoneNumber
+                            )
+                        }
+                    }else{
+                        Toast.makeText(requireActivity(), "Nomalum xatolik yuz berdi qayta urinib ko'ring", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(
@@ -260,7 +269,7 @@ class SmsVerifyFragment : Fragment() {
         auth.currentUser?.updatePhoneNumber(credential)?.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 if (auth.currentUser != null) {
-                    userData.setPhoneNumber(auth.currentUser!!.uid,phoneNumber)
+                    userData.setPhoneNumber(auth.currentUser!!.uid, phoneNumber)
                 }
             } else {
                 Toast.makeText(
@@ -276,10 +285,12 @@ class SmsVerifyFragment : Fragment() {
         userData.userData.observe(viewLifecycleOwner, Observer { it ->
             when (it.status) {
                 ResourceState.SUCCESS -> {
+                    loading(false)
                     startActivity(Intent(requireActivity(), MainActivity::class.java))
                     requireActivity().finish()
                 }
                 ResourceState.ERROR -> {
+                    loading(false)
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -287,13 +298,25 @@ class SmsVerifyFragment : Fragment() {
         userData.phoneNumber.observe(viewLifecycleOwner, Observer { it ->
             when (it.status) {
                 ResourceState.SUCCESS -> {
+                    loading(false)
                     startActivity(Intent(requireActivity(), MainActivity::class.java))
                     requireActivity().finish()
                 }
                 ResourceState.ERROR -> {
+                    loading(false)
                     Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
                 }
             }
         })
+    }
+    private fun loading(loading:Boolean){
+        if (loading){
+            binding.loading.visibility = View.VISIBLE
+            binding.loadingAnim.playAnimation()
+        }else{
+            binding.loading.visibility = View.GONE
+            binding.loadingAnim.pauseAnimation()
+        }
+
     }
 }

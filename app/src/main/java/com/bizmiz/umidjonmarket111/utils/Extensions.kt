@@ -1,10 +1,16 @@
 package com.bizmiz.umidjonmarket111.utils
 
+import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.RadioButton
 import com.bizmiz.umidjonmarket111.R
+fun View.hideKeyboard() {
+    val inputMethodManager: InputMethodManager? =
+        context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+    inputMethodManager?.hideSoftInputFromWindow(this.windowToken, 0)
+}
 fun View.showSoftKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     this.requestFocus()
