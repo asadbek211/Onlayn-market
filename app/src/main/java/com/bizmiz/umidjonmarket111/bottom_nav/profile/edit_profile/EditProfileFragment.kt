@@ -20,7 +20,6 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
@@ -28,7 +27,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.bizmiz.umidjonmarket111.R
-import com.bizmiz.umidjonmarket111.ResourceState
+import com.bizmiz.umidjonmarket111.utils.ResourceState
 import com.bizmiz.umidjonmarket111.auth.container.ContainerActivity
 import com.bizmiz.umidjonmarket111.auth.get_started.sms_verify.UserDataViewModel
 import com.bizmiz.umidjonmarket111.databinding.FragmentEditProfileBinding
@@ -38,10 +37,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton
-import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu
-import com.oguzdev.circularfloatingactionmenu.library.SubActionButton
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 
@@ -55,7 +51,7 @@ class EditProfileFragment : Fragment() {
     private var femaleChecked = false
     private var gender = ""
     private var imageUrl: Uri? = null
-    private var storageUrl:String? = null
+    private var storageUrl: String? = null
     private lateinit var binding: FragmentEditProfileBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationRequest: LocationRequest
@@ -157,7 +153,6 @@ class EditProfileFragment : Fragment() {
         }
         binding.editImage.setOnClickListener {
             imageAnimation()
-//            picImageIntent()
         }
         binding.loginEditLocation.setOnClickListener {
             if (networkCheck()) {
@@ -197,19 +192,19 @@ class EditProfileFragment : Fragment() {
             imageAnimation()
         }
         binding.removeImage.setOnClickListener {
-            if (storageUrl!=null && storageUrl!!.isNotEmpty()){
-                if(imageUrl!=null){
+            if (storageUrl != null && storageUrl!!.isNotEmpty()) {
+                if (imageUrl != null) {
                     imageAnimation()
                     imageUrl = null
                     Glide.with(this).load(storageUrl).into(binding.userImageEdit)
-                }else{
+                } else {
                     binding.loading.visibility = View.VISIBLE
                     binding.loadingAnim.playAnimation()
                     imageAnimation()
                     removeImages()
                 }
 
-            }else{
+            } else {
                 imageAnimation()
                 imageUrl = null
                 binding.userImageEdit.setImageResource(R.drawable.profile_img)
@@ -295,29 +290,36 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun getDistrict() {
-        var location = ""
+        var state = ""
+        var county = ""
         district.district.observe(viewLifecycleOwner, Observer { it ->
             when (it.status) {
                 ResourceState.SUCCESS -> {
                     it.data?.body()?.features?.forEach { feature ->
                         when {
-                            feature.properties.geocoding.state != "Respublikası" -> {
-                                location = feature.properties.geocoding.state
+                            feature.properties.geocoding.city != null -> {
+                                county = feature.properties.geocoding.city
                             }
                             feature.properties.geocoding.county != null -> {
-                                location = feature.properties.geocoding.district
+                                county = feature.properties.geocoding.county
                             }
-                            feature.properties.geocoding.city != null -> {
-                                location = feature.properties.geocoding.city
+                            else -> {
+                                county = ""
                             }
                         }
-                        binding.loginEditLocation.setTextColor(resources.getColor(R.color.black))
-                        binding.loginEditLocation.text = "${
-                            feature.properties.geocoding.state.replace(
+
+                        if (feature.properties.geocoding.state != null) {
+                            state = feature.properties.geocoding.state.replace(
                                 "Respublikası",
                                 ""
                             )
-                        },${feature.properties.geocoding.county}"
+                            county = " ,$county"
+                        } else {
+                            state = ""
+                        }
+
+                        binding.loginEditLocation.setTextColor(resources.getColor(R.color.black))
+                        binding.loginEditLocation.text = state + county
                     }
                 }
                 ResourceState.ERROR -> {
@@ -395,7 +397,7 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun setUserImage() {
-        if (imageUrl!=null){
+        if (imageUrl != null) {
             binding.loading.visibility = View.VISIBLE
             binding.loadingAnim.playAnimation()
             val storeRef =
@@ -423,12 +425,12 @@ class EditProfileFragment : Fragment() {
                     Toast.makeText(requireActivity(), it.localizedMessage, Toast.LENGTH_SHORT)
                         .show()
                 }
-        }else if (storageUrl!=null && storageUrl!!.isEmpty()){
+        } else if (storageUrl != null && storageUrl!!.isEmpty()) {
             binding.loading.visibility = View.VISIBLE
             binding.loadingAnim.playAnimation()
             userData.updateUserData(
                 auth.currentUser!!.uid,
-               "",
+                "",
                 binding.loginEditName.text.toString(),
                 binding.loginEditSurname.text.toString(),
                 binding.loginEditBirthday.text.toString(),
@@ -436,7 +438,7 @@ class EditProfileFragment : Fragment() {
                 binding.loginEditLocation.text.toString(),
                 binding.loginEditPhoneNumber.text.toString()
             )
-        }else{
+        } else {
             userData.updateUserData(
                 auth.currentUser!!.uid,
                 "noUpdate",
@@ -451,15 +453,18 @@ class EditProfileFragment : Fragment() {
 
 
     }
-    private fun removeImages(){
-        if (storageUrl!=null){
+
+    private fun removeImages() {
+        if (storageUrl != null) {
             val storeRef =
                 FirebaseStorage.getInstance().getReferenceFromUrl(storageUrl!!)
             storeRef.delete()
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
-                        userData.updateUserData(auth.currentUser!!.uid,
-                            "","","","","","","")
+                        userData.updateUserData(
+                            auth.currentUser!!.uid,
+                            "", "", "", "", "", "", ""
+                        )
 
                     }
                 }
@@ -471,6 +476,7 @@ class EditProfileFragment : Fragment() {
                 }
         }
     }
+
     private fun getUserDataObserve() {
         userData.updateUser.observe(viewLifecycleOwner, Observer { it ->
             when (it.status) {
@@ -492,23 +498,23 @@ class EditProfileFragment : Fragment() {
             }
         })
     }
-    private fun imageAnimation(){
-        if (isAnim){
+
+    private fun imageAnimation() {
+        if (isAnim) {
             binding.editImage.setImageResource(R.drawable.ic_close_img)
             isAnim = false
             binding.addImage.animate().translationX(140f).duration = 500
-            if (storageUrl!= null && storageUrl!!.isNotEmpty() || imageUrl!=null){
+            if (storageUrl != null && storageUrl!!.isNotEmpty() || imageUrl != null) {
                 binding.removeImage.animate().translationY(-140f).duration = 500
             }
 
-        }else{
+        } else {
             binding.editImage.setImageResource(R.drawable.ic_edit_img)
             isAnim = true
             binding.addImage.animate().translationX(0f).duration = 500
-            if (storageUrl!=null && storageUrl!!.isNotEmpty()|| imageUrl!=null){
+            if (storageUrl != null && storageUrl!!.isNotEmpty() || imageUrl != null) {
                 binding.removeImage.animate().translationY(0f).duration = 500
             }
         }
-
     }
 }

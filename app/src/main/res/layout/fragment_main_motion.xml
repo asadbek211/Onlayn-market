@@ -137,52 +137,59 @@
             app:selectedDotColor="@color/white" />
 
         <TextView
+            android:background="@drawable/shape_motion_button"
+            android:paddingBottom="10dp"
+            android:paddingTop="8dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:id="@+id/text_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="27dp"
             android:fontFamily="@font/raleway_semibold"
             android:text="Skip"
-            android:textColor="#E1E1E3"
+            android:textColor="@color/white"
             android:textSize="16sp"
             android:visibility="visible"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="27dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
+            android:background="@drawable/shape_motion_button"
+            android:paddingBottom="5dp"
+            android:paddingTop="3dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_marginEnd="26dp"
             android:id="@+id/text_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:layout_marginBottom="27dp"
+            android:drawableRight="@drawable/icon_arrow_right"
             android:fontFamily="@font/raleway_semibold"
             android:gravity="center"
             android:text="Next"
             android:textColor="@color/white"
             android:textSize="16sp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageNext" />
-
-        <ImageView
-            android:id="@+id/imageNext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/icon_arrow_right"
-            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
+            android:background="@drawable/shape_motion_button"
+            android:paddingBottom="5dp"
+            android:paddingTop="3dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_marginEnd="26dp"
             android:id="@+id/text_authorize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:layout_marginBottom="27dp"
+            android:drawableRight="@drawable/icon_arrow_right"
             android:fontFamily="@font/raleway_semibold"
             android:gravity="center"
             android:text="Authorize"
@@ -190,6 +197,6 @@
             android:textSize="16sp"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/imageNext" />
+            app:layout_constraintEnd_toEndOf="@+id/text_next" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.motion.widget.MotionLayout>

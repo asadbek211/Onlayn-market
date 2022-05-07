@@ -13,8 +13,7 @@
         <action
             android:id="@+id/action_mainMotion_to_createAccount"
             app:destination="@id/createAccount"
-            app:popUpTo="@id/mainMotion"
-            app:popUpToInclusive="true" />
+            app:popUpTo="@id/mainMotion"/>
         <action
             android:id="@+id/action_mainMotion_to_updateAccountFragment2"
             app:destination="@id/updateAccountFragment2"

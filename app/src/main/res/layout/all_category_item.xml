@@ -3,9 +3,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:id="@+id/linerCompatContainer"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
@@ -14,14 +15,14 @@
         android:layout_marginEnd="10dp">
 
         <ImageView
-            android:padding="2dp"
             android:id="@+id/categoryImages"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/ic_all_category_fon"
+            android:padding="10dp"
             android:scaleType="fitXY"
             android:src="@drawable/cat1" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tvCategoryName"

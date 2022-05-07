@@ -1,6 +1,8 @@
 package com.bizmiz.umidjonmarket111.auth.get_started.create_account
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
@@ -12,75 +14,87 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import com.bizmiz.umidjonmarket111.R
-import com.bizmiz.umidjonmarket111.ResourceState
+import com.bizmiz.umidjonmarket111.utils.ResourceState
 import com.bizmiz.umidjonmarket111.auth.get_started.sms_verify.UserDataViewModel
 import com.bizmiz.umidjonmarket111.databinding.FragmentCreateAccountBinding
 import com.bizmiz.umidjonmarket111.utils.PhoneNumberTextWatcher
-import com.bizmiz.umidjonmarket111.utils.hideKeyboard
 import com.bizmiz.umidjonmarket111.utils.showSoftKeyboard
 import com.google.android.material.tabs.TabLayout
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class CreateAccountFragment : Fragment() {
     private lateinit var binding: FragmentCreateAccountBinding
     private val userData: UserDataViewModel by viewModel()
+    private lateinit var prefs: SharedPreferences
+
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        prefs = requireActivity().getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE)
         requireActivity().window.decorView.windowInsetsController?.setSystemBarsAppearance(
             0,
             WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
         )
-        binding = FragmentCreateAccountBinding.bind(
-            inflater.inflate(
-                R.layout.fragment_create_account,
-                container,
-                false
+        if (!::binding.isInitialized){
+            binding = FragmentCreateAccountBinding.bind(
+                inflater.inflate(
+                    R.layout.fragment_create_account,
+                    container,
+                    false
+                )
             )
-        )
+        }
         requireActivity().window.setFlags(
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
         )
-        binding.loading.setOnClickListener {  }
+        binding.loading.setOnClickListener { }
         binding.apply {
             btnCreate.setOnClickListener {
                 if (networkCheck()) {
-                    if (binding.btnCreate.text =="Shaxsiy hisob yaratish"){
+                    if (binding.btnCreate.text == "Shaxsiy hisob yaratish") {
                         if (loginName.text != null && loginSurname.text != null) {
                             if (loginName.text!!.trim().isNotEmpty()) {
                                 if (loginSurname.text!!.trim().isNotEmpty()) {
                                     if (txtPhoneNumber.text!!.trim().isNotEmpty()) {
                                         loading(true)
                                         cursorVisible(false)
-                                        userData.checkUserRegistered("+998${
-                                            binding.txtPhoneNumber.text?.toString()?.replace("-", "")?.trim()}")
+                                        userData.checkUserRegistered(
+                                            "+998${
+                                                binding.txtPhoneNumber.text?.toString()
+                                                    ?.replace("-", "")?.trim()
+                                            }"
+                                        )
                                     } else {
                                         txtPhoneNumber.error = "Raqam kiritilishi majburiy"
                                         txtPhoneNumber.showSoftKeyboard()
                                     }
                                 } else {
-                                    loginSurname.error = "Satr to'ldirilishi majburiy"
+                                    loginSurname.error = "Familiya kiritish majburiy"
                                     loginSurname.showSoftKeyboard()
                                 }
                             } else {
-                                loginName.error = "Satr to'ldirilishi majburiy"
+                                loginName.error = "Ism kiritish majburiy"
                                 loginName.showSoftKeyboard()
                             }
                         }
-                    }else if (binding.btnCreate.text =="Shaxsiy hisobga kirish"){
-                                    if (txtPhoneNumber.text!!.trim().isNotEmpty()) {
-                                        loading(true)
-                                        cursorVisible(false)
-                                        userData.checkUserRegistered("+998${
-                                            binding.txtPhoneNumber.text?.toString()?.replace("-", "")?.trim()}")
-                                    } else {
-                                        txtPhoneNumber.error = "Raqam kiritilishi majburiy"
-                                        txtPhoneNumber.showSoftKeyboard()
-                                    }
+                    } else if (binding.btnCreate.text == "Shaxsiy hisobga kirish") {
+                        if (txtPhoneNumber.text!!.trim().isNotEmpty()) {
+                            loading(true)
+                            cursorVisible(false)
+                            userData.checkUserRegistered(
+                                "+998${
+                                    binding.txtPhoneNumber.text?.toString()?.replace("-", "")
+                                        ?.trim()
+                                }"
+                            )
+                        } else {
+                            txtPhoneNumber.error = "Raqam kiritilishi majburiy"
+                            txtPhoneNumber.showSoftKeyboard()
+                        }
                     }
                 } else {
                     Toast.makeText(requireActivity(), "Internet aloqasi yo'q", Toast.LENGTH_SHORT)
@@ -133,6 +147,7 @@ class CreateAccountFragment : Fragment() {
         }
         setAnimation()
         checkUserObserve()
+        getPrefs()
         return binding.root
     }
 
@@ -166,47 +181,56 @@ class CreateAccountFragment : Fragment() {
             logo.animate().alpha(1f).duration = 1000
         }
     }
-    private fun checkUserObserve(){
+
+    private fun checkUserObserve() {
         userData.checkUser.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 ResourceState.SUCCESS -> {
-                   if (it.data=="registered"){
-                       loading(false)
-                       cursorVisible(true)
-                       if (binding.btnCreate.text =="Shaxsiy hisob yaratish"){
-                           Toast.makeText(requireContext(), "Raqam Ro'yxatga olingan", Toast.LENGTH_SHORT).show()
-                       }else if (binding.btnCreate.text =="Shaxsiy hisobga kirish"){
-                           val bundle = bundleOf(
-                               "phoneNumber" to "+998${
-                                   binding.txtPhoneNumber.text?.toString()?.replace("-", "")?.trim()
-                               }",
-                               "number" to 0
-                           )
-                           val navController =
-                               Navigation.findNavController(requireActivity(), R.id.authContainer)
-                           navController.navigate(R.id.action_createAccount_to_smsVerify, bundle)
-                       }
+                    if (it.data == "registered") {
+                        loading(false)
+                        cursorVisible(true)
+                        if (binding.btnCreate.text == "Shaxsiy hisob yaratish") {
+                            showDialog(
+                                0,
+                                "Hurmatli foydalanuvchi telefon raqamingiz orqali shaxsiy hisob yaratilgan.\n\nSignIn orqali shaxsiy hisobingizga\nkiring!"
+                            )
+                        } else if (binding.btnCreate.text == "Shaxsiy hisobga kirish") {
+                            val bundle = bundleOf(
+                                "phoneNumber" to "+998${
+                                    binding.txtPhoneNumber.text?.toString()?.replace("-", "")
+                                        ?.trim()
+                                }",
+                                "number" to 0
+                            )
+                            val navController =
+                                Navigation.findNavController(requireActivity(), R.id.authContainer)
+                            navController.navigate(R.id.action_createAccount_to_smsVerify, bundle)
+                        }
 
-                   }else if (it.data=="unregistered"){
-                       loading(false)
-                       cursorVisible(true)
-                       if (binding.btnCreate.text =="Shaxsiy hisob yaratish"){
-                           val bundle = bundleOf(
-                               "name" to binding.loginName.text.toString(),
-                               "surname" to binding.loginSurname.text.toString(),
-                               "phoneNumber" to "+998${
-                                   binding.txtPhoneNumber.text?.toString()?.replace("-", "")?.trim()
-                               }",
-                               "number" to 0
-                           )
-                           val navController =
-                               Navigation.findNavController(requireActivity(), R.id.authContainer)
-                           navController.navigate(R.id.action_createAccount_to_smsVerify, bundle)
-                       }else if (binding.btnCreate.text =="Shaxsiy hisobga kirish"){
-                           Toast.makeText(requireContext(), "Raqam Ro'yxatga olinmagan", Toast.LENGTH_SHORT).show()
-                       }
+                    } else if (it.data == "unregistered") {
+                        loading(false)
+                        cursorVisible(true)
+                        if (binding.btnCreate.text == "Shaxsiy hisob yaratish") {
+                            val bundle = bundleOf(
+                                "name" to binding.loginName.text.toString(),
+                                "surname" to binding.loginSurname.text.toString(),
+                                "phoneNumber" to "+998${
+                                    binding.txtPhoneNumber.text?.toString()?.replace("-", "")
+                                        ?.trim()
+                                }",
+                                "number" to 0
+                            )
+                            val navController =
+                                Navigation.findNavController(requireActivity(), R.id.authContainer)
+                            navController.navigate(R.id.action_createAccount_to_smsVerify, bundle)
+                        } else if (binding.btnCreate.text == "Shaxsiy hisobga kirish") {
+                            showDialog(
+                                1,
+                                "Hurmatli foydalanuvchi telefon raqamingiz orqali shaxsiy hisob yaratilmagan.\n\nSignUp orqali shaxsiy hisobingizni\nyarating!"
+                            )
+                        }
 
-                   }
+                    }
                 }
                 ResourceState.ERROR -> {
                     loading(false)
@@ -223,14 +247,46 @@ class CreateAccountFragment : Fragment() {
         val internetInfo = conManager.activeNetworkInfo
         return internetInfo != null && internetInfo.isConnected
     }
-    private fun loading(loading:Boolean){
-        if (loading){
+
+    private fun loading(loading: Boolean) {
+        if (loading) {
             binding.loading.visibility = View.VISIBLE
             binding.loadingAnim.playAnimation()
-        }else{
+        } else {
             binding.loading.visibility = View.GONE
             binding.loadingAnim.pauseAnimation()
         }
 
+    }
+
+    private fun showDialog(tabId: Int, dialogText: String) {
+        val message = AlertDialog.Builder(requireActivity())
+        message.setTitle("Umidjon Market 111")
+        message.setMessage(dialogText)
+            .setCancelable(false)
+            .setPositiveButton("Tushunarli") { message, _ ->
+                message.dismiss()
+                if (tabId == 1) {
+                    binding.tabLayout.getTabAt(0)?.select()
+                } else {
+                    binding.tabLayout.getTabAt(1)?.select()
+                }
+
+            }
+            .create().show()
+    }
+
+    private fun getPrefs() {
+        prefs = requireActivity().getSharedPreferences("MY_PREFS_NAME", Context.MODE_PRIVATE)
+        val name = prefs.getString("name", null)
+        val surname = prefs.getString("surname", null)
+        val phoneNumber = prefs.getString("phoneNumber", null)
+        if (name!=null && surname!=null && phoneNumber!=null){
+            binding.loginName.setText(name)
+            binding.loginSurname.setText(surname)
+            binding.txtPhoneNumber.setText(phoneNumber)
+        }else if (phoneNumber!=null){
+            binding.txtPhoneNumber.setText(phoneNumber)
+        }
     }
 }

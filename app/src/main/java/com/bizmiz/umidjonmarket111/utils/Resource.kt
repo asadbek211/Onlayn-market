@@ -1,4 +1,4 @@
-package com.bizmiz.umidjonmarket111
+package com.bizmiz.umidjonmarket111.utils
 
 open class Resource<out T> constructor(val status: ResourceState, val data: T?, val message: String?, val check: String?) {
 

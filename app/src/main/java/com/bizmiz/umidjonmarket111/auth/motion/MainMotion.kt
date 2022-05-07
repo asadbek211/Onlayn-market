@@ -47,7 +47,9 @@ class MainMotion : Fragment() {
             0,
             WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
         )
-        binding = FragmentMainMotionBinding.bind(inflater.inflate(R.layout.fragment_main_motion, container, false))
+        if (!::binding.isInitialized){
+            binding = FragmentMainMotionBinding.bind(inflater.inflate(R.layout.fragment_main_motion, container, false))
+        }
         requireActivity().window.statusBarColor =
             ContextCompat.getColor(requireActivity(), R.color.white)
         requireActivity().window.decorView.windowInsetsController?.setSystemBarsAppearance(

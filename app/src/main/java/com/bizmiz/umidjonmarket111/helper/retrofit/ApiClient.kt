@@ -1,6 +1,6 @@
 package com.bizmiz.umidjonmarket111.helper.retrofit
 
-import com.bizmiz.umidjonmarket111.Constant
+import com.bizmiz.umidjonmarket111.utils.Constant
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit

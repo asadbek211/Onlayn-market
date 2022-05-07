@@ -3,7 +3,7 @@ package com.bizmiz.umidjonmarket111.auth.get_started.sms_verify
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.bizmiz.umidjonmarket111.Resource
+import com.bizmiz.umidjonmarket111.utils.Resource
 import com.bizmiz.umidjonmarket111.models.UserData
 
 class UserDataViewModel(private val userDataHelper: UserDataHelper) : ViewModel() {

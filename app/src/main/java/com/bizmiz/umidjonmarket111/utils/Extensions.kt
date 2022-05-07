@@ -6,20 +6,24 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.RadioButton
 import com.bizmiz.umidjonmarket111.R
+
 fun View.hideKeyboard() {
     val inputMethodManager: InputMethodManager? =
         context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
     inputMethodManager?.hideSoftInputFromWindow(this.windowToken, 0)
 }
+
 fun View.showSoftKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     this.requestFocus()
     imm.showSoftInput(this, 0)
 }
+
 fun twoCheckedRadioButton(rdb1: RadioButton, rdb2: RadioButton) {
     rdb1.isChecked = true
     rdb2.isChecked = false
 }
+
 val listCategoryImg: ArrayList<Int> = arrayListOf(
     R.drawable.cat1,
     R.drawable.cat2,
@@ -40,14 +44,20 @@ val listCategoryImg: ArrayList<Int> = arrayListOf(
 )
 
 val listExclusiveImg: ArrayList<Int> = arrayListOf(
-    R.drawable.exclusive1,
-    R.drawable.exclusive2,
-    R.drawable.exclusive3,
-    R.drawable.exclusive4,
-    R.drawable.exclusive1,
-    R.drawable.exclusive2,
-    R.drawable.exclusive3,
-    R.drawable.exclusive4
+    R.drawable.sabzi,
+    R.drawable.baqlajon,
+    R.drawable.chesnok,
+    R.drawable.piyoz,
+    R.drawable.pamidor,
+    R.drawable.karam,
+    R.drawable.kartoshka,
+    R.drawable.sabzi,
+    R.drawable.baqlajon,
+    R.drawable.chesnok,
+    R.drawable.piyoz,
+    R.drawable.pamidor,
+    R.drawable.karam,
+    R.drawable.kartoshka
 )
 val listCategoryName: ArrayList<String> = arrayListOf(
     "Sabzavotlar",
@@ -68,12 +78,18 @@ val listCategoryName: ArrayList<String> = arrayListOf(
     "Non maxsulotlari"
 )
 val listExclusiveName: ArrayList<String> = arrayListOf(
-    "Qulupnay",
-    "Anor",
-    "Ananas",
-    "Apelsin",
-    "Qulupnay",
-    "Anor",
-    "Ananas",
-    "Apelsin"
+    "Sabzi",
+    "Baqlajon",
+    "Chesnok",
+    "Piyoz",
+    "Pamidor",
+    "Karam",
+    "Kartoshka",
+    "Sabzi",
+    "Baqlajon",
+    "Chesnok",
+    "Piyoz",
+    "Pamidor",
+    "Karam",
+    "Kartoshka"
 )

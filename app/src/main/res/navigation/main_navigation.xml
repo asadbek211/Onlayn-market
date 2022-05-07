@@ -9,7 +9,11 @@
         android:id="@+id/category"
         android:name="com.bizmiz.umidjonmarket111.bottom_nav.home.category.CategoryFragment"
         android:label="fragment_category"
-        tools:layout="@layout/fragment_category" />
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_category_to_productsFragment"
+            app:destination="@id/productsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bottomNav"
         android:name="com.bizmiz.umidjonmarket111.bottom_nav.BottomNavFragment"
@@ -24,6 +28,9 @@
         <action
             android:id="@+id/action_bottomNav_to_editProfile"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_bottomNav_to_productsFragment"
+            app:destination="@id/productsFragment" />
     </fragment>
     <fragment
         android:id="@+id/productView"
@@ -35,4 +42,13 @@
         android:name="com.bizmiz.umidjonmarket111.bottom_nav.profile.edit_profile.EditProfileFragment"
         android:label="edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.bizmiz.umidjonmarket111.bottom_nav.home.category.products.ProductsFragment"
+        android:label="fragment_products"
+        tools:layout="@layout/fragment_products" >
+        <action
+            android:id="@+id/action_productsFragment_to_productView"
+            app:destination="@id/productView" />
+    </fragment>
 </navigation>

@@ -1,6 +1,6 @@
 package com.bizmiz.umidjonmarket111.auth.get_started.sms_verify
 
-import com.bizmiz.umidjonmarket111.Constant
+import com.bizmiz.umidjonmarket111.utils.Constant
 import com.bizmiz.umidjonmarket111.models.UserData
 import com.google.firebase.firestore.FirebaseFirestore
 

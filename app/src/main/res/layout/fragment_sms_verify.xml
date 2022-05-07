@@ -256,7 +256,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linerResendCode" />
     <LinearLayout
-        android:visibility="visible"
         android:background="#9F7A7A7A"
         android:id="@+id/loading"
         android:layout_width="match_parent"

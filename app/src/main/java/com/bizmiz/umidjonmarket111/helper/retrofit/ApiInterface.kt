@@ -1,6 +1,5 @@
 package com.bizmiz.umidjonmarket111.helper.retrofit
 
-import com.bizmiz.umidjonmarket111.models.Geo.PlacesNearbySearchResponse
 import com.bizmiz.umidjonmarket111.models.api.Result
 import retrofit2.Call
 import retrofit2.http.GET
