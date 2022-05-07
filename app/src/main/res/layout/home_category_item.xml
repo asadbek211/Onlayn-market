@@ -36,6 +36,8 @@
         android:id="@+id/tvName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/milliard_medium"
         android:gravity="center"
