@@ -72,6 +72,24 @@ class ProfileFragment : Fragment() {
             userData.getUserData(auth.currentUser!!.uid)
         }
         getUserData()
+        binding.settings.setOnClickListener {
+            Toast.makeText(requireActivity(), "Bo'lim ishlanmoqda...", Toast.LENGTH_SHORT).show()
+        }
+        binding.messages.setOnClickListener {
+            Toast.makeText(requireActivity(), "Bo'lim ishlanmoqda...", Toast.LENGTH_SHORT).show()
+        }
+        binding.share.setOnClickListener {
+            Toast.makeText(requireActivity(), "Bo'lim ishlanmoqda...", Toast.LENGTH_SHORT).show()
+        }
+        binding.privacyPolicy.setOnClickListener {
+            Toast.makeText(requireActivity(), "Bo'lim ishlanmoqda...", Toast.LENGTH_SHORT).show()
+        }
+        binding.appInfo.setOnClickListener {
+            Toast.makeText(requireActivity(), "Bo'lim ishlanmoqda...", Toast.LENGTH_SHORT).show()
+        }
+        binding.support.setOnClickListener {
+            Toast.makeText(requireActivity(), "Bo'lim ishlanmoqda...", Toast.LENGTH_SHORT).show()
+        }
         return binding.root
     }
 

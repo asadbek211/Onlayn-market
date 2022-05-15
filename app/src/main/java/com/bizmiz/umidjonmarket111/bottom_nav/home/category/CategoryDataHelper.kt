@@ -2,7 +2,9 @@ package com.bizmiz.umidjonmarket111.bottom_nav.home.category
 
 import com.bizmiz.umidjonmarket111.utils.Constant
 import com.bizmiz.umidjonmarket111.models.CategoryItem
+import com.bizmiz.umidjonmarket111.models.ProductsItem
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import java.util.ArrayList
 
 class CategoryDataHelper(private val db: FirebaseFirestore) {

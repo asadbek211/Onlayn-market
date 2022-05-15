@@ -31,12 +31,22 @@
         <action
             android:id="@+id/action_bottomNav_to_productsFragment"
             app:destination="@id/productsFragment" />
+        <action
+            android:id="@+id/action_bottomNav_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_bottomNav_to_searchFragment"
+            app:destination="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/productView"
         android:name="com.bizmiz.umidjonmarket111.bottom_nav.product_view.ProductViewFragment"
         android:label="product_view"
-        tools:layout="@layout/fragment_product_view" />
+        tools:layout="@layout/fragment_product_view" >
+        <action
+            android:id="@+id/action_productView_self"
+            app:destination="@id/productView" />
+    </fragment>
     <fragment
         android:id="@+id/editProfile"
         android:name="com.bizmiz.umidjonmarket111.bottom_nav.profile.edit_profile.EditProfileFragment"
@@ -49,6 +59,20 @@
         tools:layout="@layout/fragment_products" >
         <action
             android:id="@+id/action_productsFragment_to_productView"
+            app:destination="@id/productView" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.bizmiz.umidjonmarket111.bottom_nav.home.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        tools:layout="@layout/fragment_search"
+        android:id="@+id/searchFragment"
+        android:name="com.bizmiz.umidjonmarket111.bottom_nav.home.search.SearchFragment"
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_productView"
             app:destination="@id/productView" />
     </fragment>
 </navigation>

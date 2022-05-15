@@ -1,9 +1,12 @@
 package com.bizmiz.umidjonmarket111.bottom_nav.product_view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -12,6 +15,7 @@ import com.bizmiz.umidjonmarket111.bottom_nav.home.PopularProductAdapter
 import com.bizmiz.umidjonmarket111.bottom_nav.home.ProductsViewModel
 import com.bizmiz.umidjonmarket111.databinding.FragmentProductViewBinding
 import com.bizmiz.umidjonmarket111.models.ProductsItem
+import com.bizmiz.umidjonmarket111.utils.Constant
 import com.bizmiz.umidjonmarket111.utils.ResourceState
 import com.bumptech.glide.Glide
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -71,13 +75,23 @@ class ProductViewFragment : Fragment() {
             binding.tvOffer.visibility = View.GONE
             binding.tvLine.visibility = View.GONE
         }
+        val prefs: SharedPreferences = binding.root.context.getSharedPreferences(
+            Constant.PREFS,
+            Context.MODE_PRIVATE
+        )
+        val editor: SharedPreferences.Editor =prefs.edit()
+        if (prefs.contains(productId)) {
+            binding.ivFavourite.setImageResource(R.drawable.ic_baseline_favorite_on_white)
+        } else {
+            binding.ivFavourite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+        }
         binding.ivFavourite.setOnClickListener {
-            isPressed = if (isPressed) {
-                binding.ivFavourite.setImageResource(R.drawable.ic_baseline_favorite_on_white)
-                false
-            } else {
+            if (prefs.contains(productId)) {
                 binding.ivFavourite.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                true
+                editor.remove(productId).apply()
+            } else {
+                binding.ivFavourite.setImageResource(R.drawable.ic_baseline_favorite_on_white)
+                editor.putBoolean(productId,true).apply()
             }
         }
         binding.ivBack.setOnClickListener {
@@ -86,6 +100,14 @@ class ProductViewFragment : Fragment() {
         }
         popularProductAdapter = PopularProductAdapter()
         binding.popularRecyclerview.adapter = popularProductAdapter
+        popularProductAdapter.onClickListener {
+            val bundle = bundleOf(
+                "products" to it
+            )
+            val navController =
+                Navigation.findNavController(requireActivity(), R.id.main_container)
+            navController.navigate(R.id.action_productView_self,bundle)
+        }
         productsObserve()
         return binding.root
     }

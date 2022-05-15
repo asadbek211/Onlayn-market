@@ -61,6 +61,8 @@ class HomeFragment : Fragment() {
                     )
                 )
         }
+        binding.loading.setOnClickListener {}
+        binding.loadingAnim.playAnimation()
         requireActivity().window.setFlags(
             0,
             WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
@@ -102,6 +104,16 @@ class HomeFragment : Fragment() {
                 Navigation.findNavController(requireActivity(), R.id.main_container)
             navController.navigate(R.id.bottomNav_to_productView,bundle)
         }
+        binding.homeNotification.setOnClickListener {
+            val navController =
+                Navigation.findNavController(requireActivity(), R.id.main_container)
+            navController.navigate(R.id.action_bottomNav_to_notificationFragment)
+        }
+        binding.searchContainer.setOnClickListener {
+            val navController =
+                Navigation.findNavController(requireActivity(), R.id.main_container)
+            navController.navigate(R.id.action_bottomNav_to_searchFragment)
+        }
         productsObserve()
         return binding.root
     }
@@ -123,6 +135,8 @@ class HomeFragment : Fragment() {
         productsViewModel.products.observe(viewLifecycleOwner, Observer { it ->
             when (it.status) {
                 ResourceState.SUCCESS -> {
+                    binding.loading.visibility = View.GONE
+                    binding.loadingAnim.pauseAnimation()
                     exclusiveAdapter.exclusiveList = it.data!!
                 }
                 ResourceState.ERROR -> {
