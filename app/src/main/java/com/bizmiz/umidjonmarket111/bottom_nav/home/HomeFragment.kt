@@ -104,6 +104,16 @@ class HomeFragment : Fragment() {
                 Navigation.findNavController(requireActivity(), R.id.main_container)
             navController.navigate(R.id.bottomNav_to_productView,bundle)
         }
+        binding.homeNotification.setOnClickListener {
+            val navController =
+                Navigation.findNavController(requireActivity(), R.id.main_container)
+            navController.navigate(R.id.action_bottomNav_to_notificationFragment)
+        }
+        binding.searchContainer.setOnClickListener {
+            val navController =
+                Navigation.findNavController(requireActivity(), R.id.main_container)
+            navController.navigate(R.id.action_bottomNav_to_searchFragment)
+        }
         productsObserve()
         return binding.root
     }

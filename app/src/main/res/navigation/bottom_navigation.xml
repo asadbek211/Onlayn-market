@@ -22,7 +22,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/search"
-        android:name="com.bizmiz.umidjonmarket111.bottom_nav.search.SearchFragment"
+        android:name="com.bizmiz.umidjonmarket111.bottom_nav.offers.OffersFragment"
         android:label="search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_offers" />
 </navigation>

@@ -61,7 +61,6 @@
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/settings_icon_settings.xml" value="0.1565" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/settings_selector.xml" value="0.1565" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/shape_fragment.xml" value="0.1675" />
-        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/shape_fragment_loading.xml" value="0.174" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/shape_motion_button.xml" value="0.134" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/shape_notife.xml" value="0.134" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/drawable/shape_profil.xml" value="0.151" />
@@ -81,8 +80,10 @@
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_create_account.xml" value="0.16" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_edit_profile.xml" value="0.2" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_favourite.xml" value="0.209375" />
-        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_home.xml" value="0.23660977045320777" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_home.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_main_motion.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_notification.xml" value="0.209375" />
+        <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_offers.xml" value="0.209375" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_phone_verify.xml" value="0.18" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_product_view.xml" value="0.22" />
         <entry key="..\:/AndroidStudioProjects/UmidjonMarket111/app/src/main/res/layout/fragment_products.xml" value="0.2" />

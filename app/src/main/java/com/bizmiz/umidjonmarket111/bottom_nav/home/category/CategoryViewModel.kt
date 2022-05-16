@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bizmiz.umidjonmarket111.utils.Resource
 import com.bizmiz.umidjonmarket111.models.CategoryItem
+import com.bizmiz.umidjonmarket111.models.ProductsItem
 
 class CategoryViewModel(private val categoryDataHelper: CategoryDataHelper) : ViewModel() {
     private val categoryData: MutableLiveData<Resource<List<CategoryItem>>> = MutableLiveData()
     val category: LiveData<Resource<List<CategoryItem>>>
         get() = categoryData
-
     fun getCategoryData(
     ) {
         categoryDataHelper.getCategory(
